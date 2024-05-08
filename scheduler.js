@@ -1,10 +1,9 @@
 const Outlet = require('./models/outlet');
-const moment = require('moment-timezone');
 
 
 const cron =  async () => {
     try {
-        const currentTime = moment.tz('Asia/Shanghai').toDate();
+        const currentTime = new Date().toLocaleString('en-US', { timeZone: 'Asia/Singapore' });
         console.log("Current Time" + currentTime);
         const outlets = await Outlet.find();
         for (const outlet of outlets) {
