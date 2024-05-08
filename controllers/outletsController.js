@@ -36,3 +36,17 @@ exports.controlOutlet = async (req, res) => {
         res.status(500).json({ message: err.message });
     }
 };
+exports.toggleOutlet = async (req, res) =>{
+    try {
+        const name = req.params.name;
+        const outlet = await Outlet.findOne({name});
+        if (!outlet) {
+            return res.status(404).json({ message: 'Outlet not found' });
+        }
+        outlet.status = !outlet.status;
+        await outlet.save();
+        res.json(outlet);
+    } catch (err) {
+        res.status(500).json({ message: err.message });
+    }
+}
