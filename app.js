@@ -17,6 +17,7 @@ mongoose.connect(process.env.MONGODB_URI, {
   .then(() => console.log('MongoDB Connected'))
   .catch(err => console.log(err));
 
+app.use('/cron', cron);
 app.use('/outlets', outletRoutes);
 app.use('/api', readingRoutes)
 const PORT = process.env.PORT || 3000;

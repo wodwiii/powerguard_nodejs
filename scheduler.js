@@ -1,11 +1,11 @@
-const cron = require('node-cron');
 const Outlet = require('./models/outlet');
 const moment = require('moment-timezone');
 
 
-cron.schedule('* * * * *', async () => {
+const cron =  async () => {
     try {
         const currentTime = moment.tz('Asia/Shanghai').toDate();
+        console.log("Current Time" + currentTime);
         const outlets = await Outlet.find();
         for (const outlet of outlets) {
             let isActive = true;
@@ -28,9 +28,6 @@ cron.schedule('* * * * *', async () => {
     } catch (err) {
         console.error('Error scheduling tasks:', err);
     }
-},{
-    scheduled: true,
-    timezone: "Asia/Shanghai"
-});
+}
 
 module.exports = cron;
