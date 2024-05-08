@@ -5,7 +5,7 @@ const moment = require('moment-timezone');
 const cron =  async () => {
     try {
         const currentTime = moment.tz('Asia/Shanghai').toDate();
-        console.log("Current Time" + currentTime);
+        console.log("Current Time: " + currentTime);
         const outlets = await Outlet.find();
         for (const outlet of outlets) {
             let isActive = true;
@@ -14,10 +14,10 @@ const cron =  async () => {
                     console.error(`Invalid schedule for outlet ${outlet._id}`);
                     continue;
                 }
-
                 const startTime = new Date(currentTime.toDateString() + ' ' + schedule.startTime);
                 const endTime = new Date(currentTime.toDateString() + ' ' + schedule.endTime);
                 if (currentTime >= startTime && currentTime <= endTime) {
+                    console.log("Condition is true. Turning off the outlet.");
                     isActive = false;
                     break;
                 }
