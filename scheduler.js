@@ -22,11 +22,14 @@ const cron =  async () => {
                 if (currentTime >= startTime && currentTime <= endTime) {
                     console.log("Condition is true. Turning off the outlet.");
                     isActive = false;
+                    outlet.status = isActive;
+                    await outlet.save();
                     break;
                 }
+                outlet.status = isActive;
+                await outlet.save();
             }
-            outlet.status = isActive;
-            await outlet.save();
+
         }
     } catch (err) {
         console.error('Error scheduling tasks:', err);
