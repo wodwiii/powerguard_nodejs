@@ -9,9 +9,10 @@ const cron =  async () => {
         console.log("Current Time: " + currentTime);
         const outlets = await Outlet.find();
         for (const outlet of outlets) {
-            let isActive = outlet.status;
+            let isActive = true;
             for (const schedule of outlet.schedule || []) {
                 if (!schedule || !schedule.startTime || !schedule.endTime) {
+                    isActive = outlet.status;
                     console.error(`Invalid schedule for outlet ${outlet._id}`);
                     continue;
                 }
